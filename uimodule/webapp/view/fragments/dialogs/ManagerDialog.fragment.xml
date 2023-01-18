@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core">
+    <Dialog id="idManagerDialog" title="Cree una nueva Gerencia" class="classDialog">
+
+        <f:SimpleForm id="idManagerForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+            labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+            columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+            <f:content>
+                <Label text="ID" />
+                <Input id="idInputID" value="{Manager>/id}" type="Text" maxLength="2"/>
+                <Label text="Descripción" />
+                <Input id="idInputDesc" value="{Manager>/description}" />
+            </f:content>
+        </f:SimpleForm>
+
+        <beginButton>
+            <Button text="Cerrar" press=".onCloseDialog" type="Default" />
+        </beginButton>
+        <endButton>
+            <Button text="Crear" press=".onCreateManager" type="Emphasized" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

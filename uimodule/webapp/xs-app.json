@@ -1,0 +1,19 @@
+
+{
+  "welcomeFile": "/index.html",
+  "routes": [
+    {
+      "source": "^/catalog/(.*)$",
+      "target": "/catalog/$1",
+      "destination": "PGO",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^(.*)",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "service": "html5-apps-repo-rt"
+    }
+  ]
+}

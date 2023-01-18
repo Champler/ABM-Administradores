@@ -1,0 +1,160 @@
+<mvc:View controllerName="com.aysa.pgo.abmAdmins.controller.Object" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"  xmlns:semantic="sap.f.semantic" height="100%">
+ <semantic:SemanticPage id="page" showFooter="true" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}" busyIndicatorDelay="{objectView>/delay}">
+    <semantic:titleHeading>
+            <Title id="_IDGenTitle1" text="Dirección {AppJsonModel>/Direction/ID}" level="H2" />
+        </semantic:titleHeading>
+        <semantic:titleBreadcrumbs>
+            <Breadcrumbs id="_IDGenBreadcrumbs1">
+                <Link id="_IDGenLink1" text="Home" href="/index.html" />
+            </Breadcrumbs>
+        </semantic:titleBreadcrumbs>
+        <semantic:headerContent>
+            <Title id="_IDGenTitle2" text="{AppJsonModel>/Direction/description}" level="H5" />
+        </semantic:headerContent>
+        <semantic:content>
+            <IconTabBar id="idIconTabBar" select=".onFilterSelect" class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter id="_IDGenIconTabFilter1" text="Gerencias" key="gerencias">
+                        <Table
+                            id="tableManagement"
+                            width="auto"
+                            items="{AppJsonModel>/Manager}"
+                            fixedLayout="false"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDGenOverflowToolbar">
+                                    <Title id="tableHeader" text="{worklistView>/worklistTableTitle}" level="H3" />
+                                    <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                                    <SearchField id="searchField"  search=".onSearch">
+                                        <layoutData>
+                                            <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData1" maxWidth="200px" priority="NeverOverflow" />
+                                        </layoutData>
+                                    </SearchField>
+                                </OverflowToolbar>
+                            </headerToolbar>
+
+                            <columns>
+                                <Column id="nameColumn" width="10%">
+                                    <Text text="ID" id="nameColumnTitle" />
+                                </Column>
+                                <Column id="descriptionColumn" width="60%">
+                                    <Text text="Descripción" id="descriptionColumnTitle" />
+                                </Column>
+                                <Column id="actionColumn" width="30%" hAlign="Center">
+                                    <Text text="Acción" id="actionColumnTitle" />
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem id="_IDGenColumnListItem1">
+                                    <cells>
+                                        <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{AppJsonModel>ID}" />
+                                        <ObjectAttribute id="_IDGenObjectAttribute1" text="{AppJsonModel>description}" />
+                                        <HBox id="_IDGenHBox1" justifyContent="Center" alignItems="Center">
+                                            <Button id="_IDGenButton3" icon="sap-icon://edit" type="Accept" tooltip="Editar" press=".onEditManager" />
+                                            <Button id="_IDGenButtonDel" icon="sap-icon://delete" type="Reject" tooltip="Eliminar" press=".onPressDeleteManager" />
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                    <IconTabFilter id="_IDGenIconTabFilter2" text="Jefes de inspección" key="JE">
+                        <Table
+                            id="tableInspector"
+                            width="auto"
+                            fixedLayout="false"
+                            items="{AppJsonModel>/Inspector}"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDGenOverflowToolbar1">
+                                    <Title id="tableHeader1" level="H3" />
+                                    <ToolbarSpacer id="_IDGenToolbarSpacer2" />
+                                    <SearchField id="searchField1"  search=".onSearchInspector">
+                                        <layoutData>
+                                            <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData2" maxWidth="200px" priority="NeverOverflow" />
+                                        </layoutData>
+                                    </SearchField>
+                                </OverflowToolbar>
+                            </headerToolbar>
+
+                            <columns>
+                                <Column id="nameColumn2" width="33%">
+                                    <Text text="Nombre" id="nameColumnTitle2" />
+                                </Column>
+                                <Column id="descriptionColumn2" width="33%">
+                                    <Text text="Apellido" id="descriptionColumnTitle2" />
+                                </Column>
+                                <Column id="actionColumn2" width="33%" hAlign="Center">
+                                    <Text text="Acción" id="actionColumnTitle2" />
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem id="_IDGenColumnListItem2">
+                                    <cells>
+                                        <ObjectIdentifier id="_IDGenObjectIdentifier2" text="{AppJsonModel>first_name}" />
+                                        <ObjectAttribute id="_IDGenObjectAttribute2" text="{AppJsonModel>last_name}" />
+                                        <HBox id="_IDGenHBox2" justifyContent="Center" alignItems="Center">
+                                            <Button id="_IDGenButton5" icon="sap-icon://edit" type="Accept" tooltip="Editar" press="onEditInspector" />
+                                            <Button id="_IDGenButtonDel1" icon="sap-icon://delete" type="Reject" tooltip="Eliminar" press=".onPressDeleteInspector" />
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                    <IconTabFilter id="_IDGenIconTabFilter3" text="Inspectores" key="EM">
+                        <Table
+                            id="tableEmployee"
+                            width="auto"
+                            fixedLayout="false"
+                            items="{AppJsonModel>/Inspector}"
+                        >
+                            <headerToolbar>
+                                <OverflowToolbar id="_IDGenOverflowToolbar2">
+                                    <Title id="tableHeader2"  level="H3" />
+                                    <ToolbarSpacer id="_IDGenToolbarSpacer3" />
+                                    <SearchField id="searchField2"  search=".onSearchEmployee">
+                                        <layoutData>
+                                            <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData3" maxWidth="200px" priority="NeverOverflow" />
+                                        </layoutData>
+                                    </SearchField>
+                                </OverflowToolbar>
+                            </headerToolbar>
+
+                            <columns>
+                                <Column id="nameColumn3" width="33%">
+                                    <Text text="Nombre" id="nameColumnTitle3" />
+                                </Column>
+                                <Column id="descriptionColumn3" width="33%">
+                                    <Text text="Apellido" id="descriptionColumnTitle3" />
+                                </Column>
+                                <Column id="actionColumn3" width="33%" hAlign="Center">
+                                    <Text text="Acción" id="actionColumnTitle3" />
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem id="_IDGenColumnListItem3">
+                                    <cells>
+                                        <ObjectIdentifier id="_IDGenObjectIdentifier3" text="{AppJsonModel>first_name}" />
+                                        <ObjectAttribute id="_IDGenObjectAttribute3" text="{AppJsonModel>last_name}" />
+                                        <HBox id="_IDGenHBox3" justifyContent="Center" alignItems="Center">
+                                            <Button id="_IDGenButton7" icon="sap-icon://edit" type="Accept" tooltip="Editar" press="onEditInspector" />
+                                            <Button id="_IDGenButtonDel2" icon="sap-icon://delete" type="Reject" tooltip="Eliminar" press=".onPressDeleteInspector" />
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </semantic:content>
+        <semantic:footerCustomActions>
+            <Button text="{=${AppJsonModel>/SelectedKey} === 'gerencias' ? 'Cree una nueva gerencia' : 'Crear un nuevo Empleado' }" press=".handleManagementDialog" >
+            </Button>
+        </semantic:footerCustomActions>
+ </semantic:SemanticPage>
+</mvc:View>

@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core">
+    <Dialog id="idEditManagerDialog" title="Edite una Gerencia" class="classDialog">
+
+        <f:SimpleForm id="idEditManagerForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+            labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+            columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+            <f:content>
+                <Label text="ID" />
+                <Input id="idEditInputID" value="{AppJsonModel>/updateManager/ID}" type="Text" maxLength="2" enabled="false"/>
+                <Label text="Descripción" />
+                <Input id="idEditInputDesc" value="{AppJsonModel>/updateManager/description}" />
+            </f:content>
+        </f:SimpleForm>
+
+        <beginButton>
+            <Button text="Cerrar" press=".onCloseDialogEditManager" type="Default" />
+        </beginButton>
+        <endButton>
+            <Button text="Editar" press=".onPressEditManager" type="Emphasized" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

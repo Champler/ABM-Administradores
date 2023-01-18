@@ -1,0 +1,65 @@
+<mvc:View controllerName="com.aysa.pgo.abmAdmins.controller.Main" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"  xmlns:semantic="sap.f.semantic" height="100%">
+    <semantic:SemanticPage id="page" toggleHeaderOnTitleClick="false" showFooter="true">
+        <semantic:titleHeading>
+            <Title id="_IDGenTitle1" text="Direcciones" level="H2" />
+        </semantic:titleHeading>
+        
+        <semantic:content>
+            <Table
+                id="table"
+                width="auto"
+                items="{AppJsonModel>/Direction}"
+                fixedLayout="false"
+            >
+                <headerToolbar>
+                    <OverflowToolbar id="_IDGenOverflowToolbar1">
+                        <Title id="tableHeader" level="H3" />
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                        <SearchField id="searchField" tooltip="Search" search=".onSearch">
+                            <layoutData>
+                                <OverflowToolbarLayoutData id="_IDGenOverflowToolbarLayoutData1" maxWidth="200px" priority="NeverOverflow" />
+                            </layoutData>
+                        </SearchField>
+                        <Button id="sortUsersButton" icon="sap-icon://sort-ascending"  press=".onSort" />
+                        <Button id="sortDescUsersButton" icon="sap-icon://sort-descending"  press=".onSortDesc" />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column id="nameColumn" width="10%">
+                        <Text text="ID" id="nameColumnTitle" />
+                    </Column>
+                    <Column id="descriptionColumn" width="60%">
+                        <Text text="Descripción" id="descriptionColumnTitle" />
+                    </Column>
+                    <Column id="actionColumn" width="30%" hAlign="Center">
+                        <Text text="Acción" id="actionColumnTitle" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem id="_IDGenColumnListItem1">
+                        <cells>
+                            <ObjectIdentifier id="_IDGenObjectIdentifier1" title="{AppJsonModel>ID}" />
+                            <ObjectAttribute id="_IDGenObjectAttribute1" text="{AppJsonModel>description}" />
+                            <HBox id="_IDGenHBox1" justifyContent="Center" alignItems="Center">
+                                <Button id="_IDGenButton2" icon="sap-icon://detail-view" type="Default" tooltip="Detalle" press=".onPress" />
+                                <Button id="_IDGenButton3" icon="sap-icon://edit" type="Accept" tooltip="Editar" press="onPressEdit" />
+                                <Button id="_IDGenButtonDel" icon="sap-icon://delete" type="Reject" tooltip="Eliminar" press=".onPressDelete" />
+                            </HBox>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+
+        <!-- Custom Footer Content-->
+        <semantic:footerCustomActions>
+            <Button text="Crear una nueva dirección" press="handleUploadDialog" enabled="{EnabledModel>/attachmentButton}">
+                <layoutData>
+                    <OverflowToolbarLayoutData priority="NeverOverflow" />
+                </layoutData>
+            </Button>
+        </semantic:footerCustomActions>
+    </semantic:SemanticPage>
+</mvc:View>

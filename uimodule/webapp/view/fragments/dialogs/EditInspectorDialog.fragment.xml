@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+    xmlns:core="sap.ui.core">
+    <Dialog id="idEditInspectorDialog" title="Edite un Empleado" class="classDialog">
+
+        <f:SimpleForm id="idEditInspectorForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+            labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0"
+            columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+            <f:content>
+                <Input id="idEditId" visible="false" value="{AppJsonModel>/updateInspector/ID}" />
+                <Input id="idEditDirectionId" visible="false" value="{AppJsonModel>/updateInspector/direction_ID}" />
+                <Label text="Nombre" />
+                <Input id="idEditInputName" value="{AppJsonModel>/updateInspector/first_name}" />
+                <Label text="Apellido" />
+                <Input id="idEditInputLastName" value="{AppJsonModel>/updateInspector/last_name}" />
+                <Label text="Tipo de Empleado" />
+                <Select
+					forceSelection="true"
+                    id="selectEmployee"
+					selectedKey="EmployeeType"
+					items="{AppJsonModel>/EmployeeTypes}">
+					<core:ListItem key="{AppJsonModel>value}" text="{AppJsonModel>name}"/>
+				</Select>
+            </f:content>
+        </f:SimpleForm>
+
+        <beginButton>
+            <Button text="Cerrar" press=".onCloseDialogEditInspector" type="Default" />
+        </beginButton>
+        <endButton>
+            <Button text="Editar" press=".onPressEditInspector" type="Emphasized" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,89 @@
+_schema-version: "3.2"
+ID: abmAdmins
+version: 1.0.0
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install --force
+modules:
+  - name: abmAdmins-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: abmAdmins_uaa
+        parameters:
+          service-key:
+            name: abmAdmins_uaa-key
+      - name: abmAdmins_html_repo_host
+        parameters:
+          service-key:
+            name: abmAdmins_html_repo_host-key
+      - name: abmAdmins-destination-service
+        parameters:
+          content-target: true
+      - name: pgo_obras_workflow
+    parameters:
+      content:
+        subaccount:
+          destinations:
+            - Name: my_service_abmAdmins_html_repo_host
+              ServiceInstanceName: abmAdmins_html_repo_host
+              ServiceKeyName: abmAdmins_html_repo_host-key
+              sap.cloud.service: com.aysa.pgo
+            - Authentication: OAuth2UserTokenExchange
+              Name: my_service_uaa_abmAdmins
+              ServiceInstanceName: abmAdmins_uaa
+              ServiceKeyName: uaa_abmAdmins-key
+              sap.cloud.service: com.aysa.pgo
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+  - name: abmAdmins_ui_deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: abmAdmins_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+     build-result: resources
+     requires:
+       - name: uimodule
+         artifacts:
+           - dist/uimodule.zip
+         target-path: resources/
+  - name: uimodule
+    type: html5
+    path: uimodule
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build:uimodule --prefix ..
+      supported-platforms: []
+resources:
+  - name: pgo_obras_workflow
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service: workflow
+      service-plan: standard
+  - name: abmAdmins-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-name: abmAdmins-destination-service
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+  - name: abmAdmins_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: abmAdmins_uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application

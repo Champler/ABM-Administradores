@@ -1,0 +1,24 @@
+{
+  "generator-template-ui5-project": {
+    "projectname": "abmAdmins",
+    "namespaceUI5": "com.aysa.pgo",
+    "enableFPM": false,
+    "platform": "SAP HTML5 Application Repository service for SAP BTP",
+    "viewtype": "XML",
+    "ui5libs": "Content delivery network (SAPUI5)",
+    "newdir": true,
+    "codeassist": false,
+    "initrepo": true,
+    "namespaceURI": "com/aysa/pgo",
+    "opa5pos": [
+      "Main"
+    ],
+    "opa5Journeys": [
+      "Main"
+    ],
+    "uimodules": [
+      "uimodule"
+    ],
+    "setupCompleted": true
+  }
+}
