@@ -203,8 +203,11 @@ sap.ui.define(
                     direction_ID,
                     employee_type_ID: employee_type
                 }
-                await Services.callPostService("Inspector", newInspector).then(() => {
-                    window.location.reload()
+                await Services.callPostService("Inspector", newInspector).then(async () => {
+                    const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                    await Services.getInspectors(direction_ID).then(oData => {
+                        oModel.setProperty("/Inspector", oData.value)
+                    })
                 })
 
             },
@@ -246,16 +249,25 @@ sap.ui.define(
                     employee_type_ID
                 }
 
-                await Services.callUpdateService(`Inspector/${ID}`, editInspector).then(() => {
-                    window.location.reload()
+                await Services.callUpdateService(`Inspector/${ID}`, editInspector).then(async () => {
+                    const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                    await Services.getInspectors(direction_ID).then(oData => {
+                        oModel.setProperty("/Inspector", oData.value)
+                    })
                 })
             },
 
             onPressDeleteInspector: async function (oEvent) {
                 const selectedRow = oEvent.getSource().getBindingContext("AppJsonModel").getObject()
+                const direction_ID = this.getOwnerComponent().getModel("AppJsonModel").getProperty("/Direction").ID
 
-                await Services.callDeleteService(`Inspector/${selectedRow.ID}`).then(() => {
-                    window.location.reload()
+                await Services.callDeleteService(`Inspector/${selectedRow.ID}`).then(async () => {
+
+                    const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+
+                    await Services.getInspectors(direction_ID).then(oData => {
+                        oModel.setProperty("/Inspector", oData.value)
+                    })
                 })
             },
 
@@ -273,13 +285,19 @@ sap.ui.define(
                 const managers = this.getOwnerComponent().getModel("AppJsonModel").getProperty("/AllManagers")
 
                 const search = managers.find(manager => manager.ID === ID)
+                const message = this.getResourceBundle().getText("noAuthGer")
 
                 if (search === undefined && ID.toString().length === 2) {
-                    await Services.callPostService("Manager", newManager).then(() => {
-                        window.location.reload()
+
+                    await Services.callPostService("Manager", newManager).then(async () => {
+                        const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+
+                        await Services.getManagers(direction_ID).then(oData => {
+                            oModel.setProperty("/Manager", oData.value)
+                        })
                     })
                 } else {
-                    MessageToast.show(`La dirección con el id ${ID} es nulo o ya existente`)
+                    MessageToast.show(message)
                 }
 
             },
@@ -315,16 +333,24 @@ sap.ui.define(
                     description
                 }
 
-                await Services.callUpdateService(`Manager/${editManager.ID}`, editManager).then(() => {
-                    window.location.reload()
+                await Services.callUpdateService(`Manager/${editManager.ID}`, editManager).then(async () => {
+                    const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                    const direction_ID = this.getOwnerComponent().getModel("AppJsonModel").getProperty("/Direction").ID
+                    await Services.getManagers(direction_ID).then(oData => {
+                        oModel.setProperty("/Manager", oData.value)
+                    })
                 })
             },
 
             onPressDeleteManager: async function (oEvent) {
                 const selectedRow = oEvent.getSource().getBindingContext("AppJsonModel").getObject()
 
-                await Services.callDeleteService(`Manager/${selectedRow.ID}`).then(() => {
-                    window.location.reload()
+                await Services.callDeleteService(`Manager/${selectedRow.ID}`).then(async () => {
+                    const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                    const direction_ID = this.getOwnerComponent().getModel("AppJsonModel").getProperty("/Direction").ID
+                    await Services.getManagers(direction_ID).then(oData => {
+                        oModel.setProperty("/Manager", oData.value)
+                    })
                 })
             },
 

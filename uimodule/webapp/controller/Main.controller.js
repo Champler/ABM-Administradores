@@ -26,7 +26,7 @@ sap.ui.define(
                 await Services.getDirections().then(oData => {
                     oModel.setProperty("/Direction", oData.value)
                 })
-                /* forEach  */
+
             },
 
             onSearch: function (oEvent) {
@@ -122,12 +122,17 @@ sap.ui.define(
 
                 const search = directions.find(direction => direction.ID === id)
 
-                if (search === undefined && id.toString().length === 2){
-                    await Services.callPostService("Direction", newDirection).then(() => {
-                        window.location.reload()
+                const message = this.getResourceBundle().getText("noAuthDir")
+
+                if (search === undefined && id.toString().length === 2) {
+                    await Services.callPostService("Direction", newDirection).then(async () => {
+                        await Services.getDirections().then(oData => {
+                            const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                            oModel.setProperty("/Direction", oData.value)
+                        })
                     })
                 } else {
-                    MessageToast.show(`La dirección con el id ${id} es nulo o ya existente`)
+                    MessageToast.show(message)
                 }
             },
 
@@ -139,16 +144,22 @@ sap.ui.define(
                     description
                 }
 
-                await Services.callUpdateService(`Direction/${newDirection.ID}`, newDirection).then(() => {
-                    window.location.reload()
+                await Services.callUpdateService(`Direction/${newDirection.ID}`, newDirection).then(async () => {
+                    await Services.getDirections().then(oData => {
+                        const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                        oModel.setProperty("/Direction", oData.value)
+                    })
                 })
             },
 
             onPressDelete: async function (oEvent) {
                 const selectedRow = oEvent.getSource().getBindingContext("AppJsonModel").getObject()
 
-                await Services.callDeleteService(`Direction/${selectedRow.ID}`).then(() => {
-                    window.location.reload()
+                await Services.callDeleteService(`Direction/${selectedRow.ID}`).then(async () => {
+                    await Services.getDirections().then(oData => {
+                        const oModel = this.getOwnerComponent().getModel("AppJsonModel")
+                        oModel.setProperty("/Direction", oData.value)
+                    })
                 })
             },
 
